@@ -1,20 +1,20 @@
 import XCTest
 import MediaPlayer
-@testable import SwiftAudioEx
+@testable import SwiftAudioPro
 
 class AudioPlayerEventTests: XCTestCase {
-    
+
     class EventListener {
         var handleEvent: ((Void)) -> Void = { _ in }
     }
-    
+
     var event: AudioPlayer.Event<(Void)>!
-    
+
     override func setUp() {
         super.setUp()
         event = AudioPlayer.Event()
     }
-    
+
     override func tearDown() {
         event = nil
         super.tearDown()
@@ -31,34 +31,34 @@ class AudioPlayerEventTests: XCTestCase {
         event.addListener(listener, listener.handleEvent)
         listener = nil
         event.emit(data: ())
-        
+
         waitEqual(self.event.invokers.count, 0, timeout: defaultTimeout)
     }
 
     func testEventAddMultipleListeners() {
         var listeners = [EventListener]()
-        
+
         listeners = (0..<15).map { _ in
             let listener = EventListener()
             event.addListener(listener, listener.handleEvent)
             return listener
         }
-        
+
         waitEqual(self.event.invokers.count, listeners.count, timeout: defaultTimeout)
     }
-    
+
     func testEventRemoveOneListener() {
         var listeners = [EventListener]()
-        
+
         listeners = (0..<15).map { _ in
             let listener = EventListener()
             event.addListener(listener, listener.handleEvent)
             return listener
         }
-        
+
         let listenerToRemove = listeners[listeners.count / 2]
         event.removeListener(listenerToRemove)
-        
+
         waitEqual(self.event.invokers.count, listeners.count - 1, timeout: defaultTimeout)
     }
 }

@@ -21,7 +21,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Run Tests
-        run: xcodebuild test -scheme SwiftAudioEx ${{ matrix.destination }} -enableCodeCoverage YES
+        run: xcodebuild test -scheme SwiftAudioPro ${{ matrix.destination }} -enableCodeCoverage YES
       - name: Upload coverage to Codecov
         if: matrix.target == 'macos'
         uses: codecov/codecov-action@v4

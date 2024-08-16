@@ -1,6 +1,6 @@
 import XCTest
 import AVFoundation
-@testable import SwiftAudioEx
+@testable import SwiftAudioPro
 
 class AVPlayerObserverTests: XCTestCase, AVPlayerObserverDelegate {
 
@@ -38,7 +38,7 @@ class AVPlayerObserverTests: XCTestCase, AVPlayerObserverDelegate {
         observer.startObserving()
         player.replaceCurrentItem(with: AVPlayerItem(url: URL(fileURLWithPath: Source.path)))
         player.play()
-        
+
         XCTAssertNotNil(self.status)
         XCTAssertNotNil(self.timeControlStatus)
     }
@@ -54,7 +54,7 @@ class AVPlayerObserverTests: XCTestCase, AVPlayerObserverDelegate {
         observer.stopObserving()
         XCTAssertFalse(observer.isObserving)
     }
-    
+
     // MARK: - AVPlayerObserverDelegate
 
     func player(statusDidChange status: AVPlayer.Status) {

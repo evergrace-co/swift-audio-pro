@@ -1,26 +1,9 @@
-![logo](Images/original-horizontal.png)
+# SwiftAudioPro
 
-# SwiftAudioEx
+[![License](https://img.shields.io/cocoapods/l/SwiftAudioPro.svg?style=flat)](http://cocoapods.org/pods/SwiftAudioPro)
+[![Platform](https://img.shields.io/cocoapods/p/SwiftAudioPro.svg?style=flat)](http://cocoapods.org/pods/SwiftAudioPro)
 
-[![codecov](https://codecov.io/gh/doublesymmetry/SwiftAudioEx/graph/badge.svg?token=FD5THGSHM5)](https://codecov.io/gh/doublesymmetry/SwiftAudioEx)
-[![License](https://img.shields.io/cocoapods/l/SwiftAudioEx.svg?style=flat)](http://cocoapods.org/pods/SwiftAudioEx)
-[![Platform](https://img.shields.io/cocoapods/p/SwiftAudioEx.svg?style=flat)](http://cocoapods.org/pods/SwiftAudioEx)
-
-SwiftAudioEx is an audio player written in Swift, making it simpler to work with audio playback from streams and files.
-
-<div align="left" valign="middle">
-<a href="https://runblaze.dev">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://www.runblaze.dev/logo_dark.png">
-   <img align="right" src="https://www.runblaze.dev/logo_light.png" height="102px"/>
- </picture>
-</a>
-
-<br style="display: none;"/>
-
-_[Blaze](https://runblaze.dev) sponsors SwiftAudioEx by providing super fast Apple Silicon based macOS Github Action Runners. Use the discount code `RNTP50` at checkout to get 50% off your first year._
-
-</div>
+SwiftAudioPro is an audio player written in Swift, making it simpler to work with audio playback from streams and files.
 
 ## Example
 
@@ -40,17 +23,17 @@ iOS 11.0+
 
 [Swift Package Manager](https://swift.org/package-manager/) (SwiftPM) is a tool for managing the distribution of Swift code as well as C-family dependency. From Xcode 11, SwiftPM got natively integrated with Xcode.
 
-SwiftAudioEx supports SwiftPM from version 0.12.0. To use SwiftPM, you should use Xcode 11 to open your project. Click `File` -> `Swift Packages` -> `Add Package Dependency`, enter [SwiftAudioEx repo's URL](https://github.com/doublesymmetry/SwiftAudio.git). Or you can login Xcode with your GitHub account and just type `SwiftAudioEx` to search.
+SwiftAudioPro supports SwiftPM from version 0.12.0. To use SwiftPM, you should use Xcode 11 to open your project. Click `File` -> `Swift Packages` -> `Add Package Dependency`, enter [SwiftAudioPro repo's URL](https://github.com/evergrace-co/swift-audio-pro.git). Or you can login Xcode with your GitHub account and just type `SwiftAudioPro` to search.
 
 After select the package, you can choose the dependency type (tagged version, branch or commit). Then Xcode will setup all the stuff for you.
 
-If you're a framework author and use SwiftAudioEx as a dependency, update your `Package.swift` file:
+If you're a framework author and use SwiftAudioPro as a dependency, update your `Package.swift` file:
 
 ```swift
 let package = Package(
     // 0.12.0 ..< 1.0.0
     dependencies: [
-        .package(url: "https://github.com/doublesymmetry/SwiftAudio.git", from: "1.0.0")
+        .package(url: "https://github.com/evergrace-co/swift-audio-pro.git", from: "1.0.0")
     ],
     // ...
 )
@@ -58,22 +41,12 @@ let package = Package(
 
 ### CocoaPods
 
-SwiftAudioEx is available through [CocoaPods](http://cocoapods.org). To install
+SwiftAudioPro is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SwiftAudioEx', '~> 1.0.0'
+pod 'SwiftAudioPro', '~> 1.0.0'
 ```
-
-### Carthage
-
-SwiftAudioEx supports [Carthage](https://github.com/Carthage/Carthage). Add this to your Cartfile:
-
-```ruby
-github "doublesymmetry/SwiftAudioEx" ~> 1.0.0
-```
-
-Then follow the rest of Carthage instructions on [adding a framework](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
 ## Usage
 
@@ -234,8 +207,8 @@ Make your `AudioItem`-subclass conform to `InitialTiming` to be able to start pl
 
 ## Author
 
-Originally: Jørgen Henrichsen now extended by David Chavez and other contributors.
+Originally: Jørgen Henrichsen, extended by David Chavez and other contributors.
 
 ## License
 
-SwiftAudioEx is available under the MIT license. See the LICENSE file for more info.
+SwiftAudioPro is available under the MIT license. See the LICENSE file for more info.

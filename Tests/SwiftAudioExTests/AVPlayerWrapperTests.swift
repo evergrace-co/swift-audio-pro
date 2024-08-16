@@ -1,6 +1,6 @@
 import AVFoundation
 import XCTest
-@testable import SwiftAudioEx
+@testable import SwiftAudioPro
 
 class AVPlayerWrapperTests: XCTestCase {
 

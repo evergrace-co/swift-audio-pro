@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftAudioEx
+import SwiftAudioPro
 
 struct PlayerView: View {
     @ObservedObject var viewModel: ViewModel
@@ -78,7 +78,7 @@ struct PlayerView: View {
             } else {
                 Text("Live Stream")
                     .padding(.top, 35)
-            } 
+            }
 
             HStack {
                 Button(action: controller.player.previous, label: {

@@ -1,8 +1,8 @@
 import XCTest
-@testable import SwiftAudioEx
+@testable import SwiftAudioPro
 
 class AudioPlayerTests: XCTestCase {
-    
+
     var audioPlayer: AudioPlayer!
     var listener: AudioPlayerEventListener!
     var playerStateEventListener: PlayerStateEventListener!
@@ -51,23 +51,23 @@ class AudioPlayerTests: XCTestCase {
 
     func testLoadAudioItemSeeksWhenInitialTimeIsSet() {
         let expectation = XCTestExpectation(description: "Seek completion")
-        
+
         var seekCompleted = false
         listener.onSeekCompletion = {
             seekCompleted = true
             expectation.fulfill()
         }
-        
+
         audioPlayer.playWhenReady = false
         XCTAssertFalse(audioPlayer.playWhenReady)
         audioPlayer.load(item: FiveSecondSourceWithInitialTimeOfFourSeconds.getAudioItem())
-        
+
         wait(for: [expectation], timeout: defaultTimeout)
-        
+
         XCTAssertTrue(seekCompleted)
         XCTAssertTrue(audioPlayer.currentTime >= 4)
     }
-    
+
     // MARK: - Duration
 
     func testSetDurationAfterLoading() {
@@ -77,18 +77,18 @@ class AudioPlayerTests: XCTestCase {
 
     func testOnUpdateDurationReceivedAfterLoading() {
         let expectation = XCTestExpectation(description: "Update duration received")
-        
+
         var receivedUpdateDuration = false
         listener.onUpdateDuration = { duration in
             receivedUpdateDuration = true
             XCTAssertEqual(duration, 5, accuracy: 0.1)
             expectation.fulfill()
         }
-        
+
         audioPlayer.load(item: FiveSecondSource.getAudioItem())
-        
+
         wait(for: [expectation], timeout: defaultTimeout) // Adjust the timeout as needed
-        
+
         XCTAssertTrue(receivedUpdateDuration)
     }
 
@@ -109,18 +109,18 @@ class AudioPlayerTests: XCTestCase {
         audioPlayer.clear()
         XCTAssertEqual(audioPlayer.duration, 0)
     }
-    
+
     // MARK: - Failure
-    
+
     func testFailEventOnLoadWithNonMalformedURL() {
         let expectation = XCTestExpectation(description: "Fail event received on load with non-malformed URL")
-        
+
         var didReceiveFail = false
         listener.onReceiveFail = { error in
             didReceiveFail = true
             expectation.fulfill()
         }
-        
+
         let item = DefaultAudioItem(
             audioUrl: "", // malformed url
             artist: "Artist",
@@ -129,9 +129,9 @@ class AudioPlayerTests: XCTestCase {
             sourceType: .stream
         )
         audioPlayer.load(item: item, playWhenReady: true)
-        
+
         wait(for: [expectation], timeout: defaultTimeout) // Adjust the timeout as needed
-        
+
         XCTAssertNotNil(audioPlayer.playbackError)
         XCTAssertEqual(audioPlayer.playerState, .failed)
         XCTAssertTrue(didReceiveFail)
@@ -139,19 +139,19 @@ class AudioPlayerTests: XCTestCase {
 
     func testFailEventOnLoadWithNonExistingResource() {
         let expectation = XCTestExpectation(description: "Fail event received on load with non-existing resource")
-        
+
         var didReceiveFail = false
         listener.onReceiveFail = { error in
             didReceiveFail = true
             expectation.fulfill()
         }
-        
+
         let nonExistingUrl = "https://\(String.random(length: 100)).com/\(String.random(length: 100)).mp3"
         let item = DefaultAudioItem(audioUrl: nonExistingUrl, artist: "Artist", title: "Title", albumTitle: "AlbumTitle", sourceType: .stream)
         audioPlayer.load(item: item, playWhenReady: true)
-        
+
         wait(for: [expectation], timeout: 10) // Adjust the timeout as needed
-        
+
         XCTAssertNotNil(audioPlayer.playbackError)
         XCTAssertEqual(audioPlayer.playerState, .failed)
         XCTAssertTrue(didReceiveFail)
@@ -166,10 +166,10 @@ class AudioPlayerTests: XCTestCase {
             albumTitle: "AlbumTitle",
             sourceType: .stream
         )
-        
+
         audioPlayer.load(item: item, playWhenReady: true)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, [.loading, .failed], timeout: defaultTimeout)
-        
+
         audioPlayer.play()
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, [.loading, .failed, .loading, .failed], timeout: defaultTimeout)
     }
@@ -183,10 +183,10 @@ class AudioPlayerTests: XCTestCase {
             albumTitle: "AlbumTitle",
             sourceType: .stream
         )
-        
+
         audioPlayer.load(item: item, playWhenReady: true)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, [.loading, .failed], timeout: defaultTimeout)
-        
+
         audioPlayer.playWhenReady = true
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, [.loading, .failed, .loading, .failed], timeout: defaultTimeout)
     }
@@ -200,10 +200,10 @@ class AudioPlayerTests: XCTestCase {
             albumTitle: "AlbumTitle",
             sourceType: .stream
         )
-        
+
         audioPlayer.load(item: item, playWhenReady: true)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, [.loading, .failed], timeout: defaultTimeout)
-        
+
         audioPlayer.reload(startFromCurrentTime: true)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, [.loading, .failed, .loading, .failed], timeout: defaultTimeout)
     }
@@ -213,15 +213,15 @@ class AudioPlayerTests: XCTestCase {
         listener.onReceiveFail = { error in
             didReceiveFail = true
         }
-        
+
         let nonExistingUrl = "https://\(String.random(length: 100)).com/\(String.random(length: 100)).mp3"
         let failItem = DefaultAudioItem(audioUrl: nonExistingUrl, artist: "Artist", title: "Title", albumTitle: "AlbumTitle", sourceType: .stream)
-        
+
         audioPlayer.load(item: failItem, playWhenReady: false)
         waitTrue(didReceiveFail, timeout: defaultTimeout)
         waitEqual(self.audioPlayer.playerState, .failed, timeout: defaultTimeout)
         waitEqual(self.playerStateEventListener.states, [.loading, .failed], timeout: defaultTimeout)
-        
+
         self.audioPlayer.load(item: Source.getAudioItem(), playWhenReady: true)
         waitTrue(self.audioPlayer.playbackError == nil, timeout: defaultTimeout)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, [.loading, .failed, .idle, .loading, .playing], timeout: defaultTimeout)
@@ -232,20 +232,20 @@ class AudioPlayerTests: XCTestCase {
         listener.onReceiveFail = { error in
             didReceiveFail = true
         }
-        
+
         let nonExistingUrl = "https://\(String.random(length: 100)).com/\(String.random(length: 100)).mp3"
         let item = DefaultAudioItem(audioUrl: nonExistingUrl, artist: "Artist", title: "Title", albumTitle: "AlbumTitle", sourceType: .stream)
-        
+
         audioPlayer.load(item: item, playWhenReady: true)
         waitTrue(didReceiveFail, timeout: defaultTimeout)
         waitEqual(self.audioPlayer.playerState, .failed, timeout: defaultTimeout)
-        
+
         self.audioPlayer.load(item: Source.getAudioItem(), playWhenReady: true)
         waitTrue(self.audioPlayer.playbackError == nil, timeout: defaultTimeout)
     }
-    
+
     // MARK: - States
-    
+
     func testInitialStateIsIdle() {
         XCTAssertEqual(audioPlayer.playerState, .idle)
     }
@@ -269,15 +269,15 @@ class AudioPlayerTests: XCTestCase {
         audioPlayer.load(item: Source.getAudioItem(), playWhenReady: true)
         var expectedEvents: [AVPlayerWrapperState] = [.loading, .playing]
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
-        
+
         audioPlayer.pause()
         expectedEvents.append(.paused)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
-        
+
         audioPlayer.play()
         expectedEvents.append(.playing)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
-        
+
         audioPlayer.clear()
         expectedEvents.append(.idle)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
@@ -288,7 +288,7 @@ class AudioPlayerTests: XCTestCase {
         var expectedEvents: [AVPlayerWrapperState] = [.loading, .playing]
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
         waitTrue(self.audioPlayer.currentTime > 0, timeout: defaultTimeout)
-        
+
         // Simulate AVPlayer becoming paused due to external reason:
         audioPlayer.wrapper.rate = 0
         expectedEvents.append(.paused)
@@ -300,15 +300,15 @@ class AudioPlayerTests: XCTestCase {
         audioPlayer.load(item: Source.getAudioItem(), playWhenReady: true)
         var expectedEvents: [AVPlayerWrapperState] = [.loading, .playing]
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
-        
+
         audioPlayer.pause()
         expectedEvents.append(.paused)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
-        
+
         expectedEvents.append(.playing)
         audioPlayer.play()
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
-        
+
         audioPlayer.stop()
         expectedEvents.append(.stopped)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
@@ -318,11 +318,11 @@ class AudioPlayerTests: XCTestCase {
         audioPlayer.load(item: Source.getAudioItem(), playWhenReady: true)
         var expectedEvents: [AVPlayerWrapperState] = [.loading, .playing]
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
-        
+
         audioPlayer.clear()
         expectedEvents.append(.idle)
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
-        
+
         audioPlayer.load(item: Source.getAudioItem())
         expectedEvents.append(contentsOf: [.loading, .playing])
         waitEqual(self.playerStateEventListener.statesWithoutBuffering, expectedEvents, timeout: defaultTimeout)
@@ -331,7 +331,7 @@ class AudioPlayerTests: XCTestCase {
     func testPlayingStateAfterPlay() {
         audioPlayer.load(item: Source.getAudioItem(), playWhenReady: false)
         waitEqual(self.audioPlayer.playerState, .ready, timeout: defaultTimeout)
-        
+
         audioPlayer.play()
         waitEqual(self.audioPlayer.playerState, .playing, timeout: defaultTimeout)
     }
@@ -339,7 +339,7 @@ class AudioPlayerTests: XCTestCase {
     func testPausedStateAfterPause() {
         audioPlayer.load(item: Source.getAudioItem(), playWhenReady: true)
         waitEqual(self.audioPlayer.playerState, .playing, timeout: defaultTimeout)
-        
+
         audioPlayer.pause()
         waitEqual(self.audioPlayer.playerState, .paused, timeout: defaultTimeout)
     }
@@ -347,7 +347,7 @@ class AudioPlayerTests: XCTestCase {
     func testPausedStateAfterSettingPlayWhenReadyToFalse() {
         audioPlayer.load(item: Source.getAudioItem(), playWhenReady: true)
         waitEqual(self.audioPlayer.playerState, .playing, timeout: defaultTimeout)
-        
+
         audioPlayer.playWhenReady = false
         waitEqual(self.audioPlayer.playerState, .paused, timeout: defaultTimeout)
     }
@@ -355,7 +355,7 @@ class AudioPlayerTests: XCTestCase {
     func testPlayingStateAfterSettingPlayWhenReadyToTrue() {
         audioPlayer.load(item: Source.getAudioItem(), playWhenReady: false)
         waitEqual(self.audioPlayer.playerState, .ready, timeout: defaultTimeout)
-        
+
         audioPlayer.playWhenReady = true
         waitEqual(self.audioPlayer.playerState, .playing, timeout: defaultTimeout)
     }
@@ -363,31 +363,31 @@ class AudioPlayerTests: XCTestCase {
     func testStoppedStateAfterStop() {
         audioPlayer.load(item: Source.getAudioItem(), playWhenReady: true)
         waitEqual(self.audioPlayer.playerState, .playing, timeout: defaultTimeout)
-        
+
         audioPlayer.stop()
         waitEqual(self.audioPlayer.playerState, .stopped, timeout: defaultTimeout)
     }
-    
+
     // MARK: - State (Current Time)
-    
+
     func testInitialCurrentTime() {
         XCTAssertEqual(audioPlayer.currentTime, 0.0)
     }
-    
+
     func testSecondsElapseEventEmittedWhenPlaying() {
         var onSecondsElapseTime = 0.0
-        
+
         audioPlayer.timeEventFrequency = .everyQuarterSecond
         listener.onSecondsElapse = { time in
             onSecondsElapseTime = time
         }
-        
+
         audioPlayer.load(item: LongSource.getAudioItem(), playWhenReady: true)
         waitTrue(onSecondsElapseTime > 0, timeout: defaultTimeout)
     }
-    
+
     // MARK: - Buffer
-    
+
     func testAutomaticallyWaitsToMinimizeStalling() {
         XCTAssertTrue(audioPlayer.automaticallyWaitsToMinimizeStalling)
     }
@@ -406,9 +406,9 @@ class AudioPlayerTests: XCTestCase {
         audioPlayer.automaticallyWaitsToMinimizeStalling = true
         XCTAssertEqual(audioPlayer.bufferDuration, 0)
     }
-    
+
     // MARK: - Seek
-    
+
     func testSeekingBeforeLoadingComplete() {
         audioPlayer.load(item: FiveSecondSource.getAudioItem(), playWhenReady: true)
         XCTAssertTrue(audioPlayer.playerState == .buffering)
@@ -437,9 +437,9 @@ class AudioPlayerTests: XCTestCase {
         audioPlayer.seek(to: 4.75)
         waitEqual(self.audioPlayer.currentTime, 0, timeout: defaultTimeout)
     }
-    
+
     // MARK: - Rate
-    
+
     func testRateInitially() {
         XCTAssertEqual(audioPlayer.rate, 1)
     }
@@ -467,7 +467,7 @@ class AudioPlayerTests: XCTestCase {
         audioPlayer.load(item: FiveSecondSource.getAudioItem(), playWhenReady: true)
         audioPlayer.rate = 10
         waitEqual(self.audioPlayer.playerState, .ended, timeout: defaultTimeout)
-        
+
         if let start = start, let end = end {
             let duration = end.timeIntervalSince(start)
             XCTAssertLessThan(duration, 1, "Duration should be less than 1 second")
@@ -499,13 +499,13 @@ class AudioPlayerTests: XCTestCase {
 
         audioPlayer.seek(to: 4.75)
         waitEqual(self.audioPlayer.playerState, .ended, timeout: defaultTimeout)
-        
+
         if let start = start, let end = end {
             let duration = end.timeIntervalSince(start)
             XCTAssertLessThanOrEqual(duration, 1, "Duration should be less than or equal to 1 second")
         }
     }
-    
+
     // MARK: - Current Item
 
     func testCurrentItemInitially() {

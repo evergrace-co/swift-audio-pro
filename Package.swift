@@ -2,21 +2,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftAudioEx",
+    name: "SwiftAudioPro",
     platforms: [.iOS(.v11), .macOS(.v11)],
     products: [
         .library(
-            name: "SwiftAudioEx",
-            targets: ["SwiftAudioEx"]),
+            name: "SwiftAudioPro",
+            targets: ["SwiftAudioPro"]),
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "SwiftAudioEx",
+            name: "SwiftAudioPro",
             dependencies: []),
         .testTarget(
-            name: "SwiftAudioExTests",
-            dependencies: ["SwiftAudioEx"],
+            name: "SwiftAudioProTests",
+            dependencies: ["SwiftAudioPro"],
             resources: [
                 .process("Resources")
             ]

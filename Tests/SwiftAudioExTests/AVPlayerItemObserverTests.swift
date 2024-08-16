@@ -1,6 +1,6 @@
 import XCTest
 import AVFoundation
-@testable import SwiftAudioEx
+@testable import SwiftAudioPro
 
 class AVPlayerItemObserverTests: XCTestCase {
     var observer: AVPlayerItemObserver!
@@ -28,7 +28,7 @@ class AVPlayerItemObserverTests: XCTestCase {
         observer.startObserving(item: item)
         XCTAssertTrue(observer.isObserving)
     }
-    
+
     func testObservingInQuickSucccession() {
         for _ in 0...1000 {
             let item = AVPlayerItem(url: URL(fileURLWithPath: Source.path))

@@ -5,7 +5,7 @@
 //  Created by David Chavez on 4/12/24.
 //
 
-import SwiftAudioEx
+import SwiftAudioPro
 
 #if os(macOS)
 import AppKit

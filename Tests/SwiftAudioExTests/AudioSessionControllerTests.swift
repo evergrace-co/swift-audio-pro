@@ -3,7 +3,7 @@ import AVFoundation
 
 #if os(iOS)
 
-@testable import SwiftAudioEx
+@testable import SwiftAudioPro
 
 class AudioSessionControllerTests: XCTestCase {
     var audioSessionController: AudioSessionController!

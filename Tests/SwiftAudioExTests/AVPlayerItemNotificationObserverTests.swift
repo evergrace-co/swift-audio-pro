@@ -1,6 +1,6 @@
 import XCTest
 import AVFoundation
-@testable import SwiftAudioEx
+@testable import SwiftAudioPro
 
 class AVPlayerItemNotificationObserverTests: XCTestCase {
 

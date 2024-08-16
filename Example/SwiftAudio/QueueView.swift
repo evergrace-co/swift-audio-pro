@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftAudioEx
+import SwiftAudioPro
 
 struct QueueView: View {
     let controller = AudioController.shared
