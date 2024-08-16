@@ -10,9 +10,7 @@ Pod::Spec.new do |s|
   s.name             = 'SwiftAudioPro'
   s.version          = '0.0.1'
   s.summary          = 'Easy audio streaming for iOS'
-  s.description      = <<-DESC
-SwiftAudioPro is an audio player written in Swift, making it simpler to work with audio playback from streams and files.
-DESC
+  s.description      = 'SwiftAudioPro is an audio player written in Swift, making it simpler to work with audio playback from streams and files.'
 
   s.homepage         = 'https://github.com/evergrace-co/swift-audio-pro'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
