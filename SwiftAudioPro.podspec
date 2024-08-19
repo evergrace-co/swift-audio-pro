@@ -7,17 +7,18 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'SwiftAudioPro'
-  s.version          = '0.1.0'
-  s.summary          = 'Easy audio streaming for iOS'
-  s.description      = 'SwiftAudioPro is an audio player written in Swift, making it simpler to work with audio playback from streams and files.'
+  s.name         = "SwiftAudioPro"
+  s.version      = "0.1.1"
+  s.summary      = "A powerful audio library for iOS."
+  s.description  = <<-DESC
+                   SwiftAudioPro is a powerful audio library for iOS, providing advanced audio playback and recording capabilities.
+                   DESC
+  s.homepage     = "https://github.com/evergrace-co/swift-audio-pro"
+  s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.author       = { "Brad Flood" => "bradley.flood@gmail.com" }
+  s.source       = { :git => "https://github.com/evergrace-co/swift-audio-pro.git", :tag => s.version.to_s }
 
-  s.homepage         = 'https://github.com/evergrace-co/swift-audio-pro'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.authors          = { 'Brad Flood' => 'hey@bradflood.com', 'David Chavez' => 'david@dcvz.io', 'Jørgen Henrichsen' => 'jh.henrichs@gmail.com' }
-  s.source           = { :git => 'https://github.com/evergrace-co/swift-audio-pro.git', :tag => s.version.to_s }
-
-  s.ios.deployment_target = '13.0'
-  s.swift_version = '5.0'
-  s.source_files = 'Sources/SwiftAudioPro/**/*'
+  s.platform     = :ios, "13.0"
+  s.swift_version = "5.0"
+  s.source_files  = "Sources/**/*.{swift,h,m}"
 end
