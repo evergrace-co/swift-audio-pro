@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'SwiftAudioPro'
-  s.version      = '0.1.2'
+  s.version      = '0.1.3'
   s.summary      = 'A powerful audio library for iOS.'
   s.description  = <<-DESC
                    SwiftAudioPro is a powerful audio library for iOS, providing advanced audio playback and recording capabilities.
