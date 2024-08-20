@@ -1,21 +1,13 @@
-//
-//  AudioPlayerObserver.swift
-//  SwiftAudio
-//
-//  Created by Jørgen Henrichsen on 09/03/2018.
-//  Copyright © 2018 Jørgen Henrichsen. All rights reserved.
-//
-
 import Foundation
 import AVFoundation
 
 protocol AVPlayerObserverDelegate: AnyObject {
-    
+
     /**
      Called when the AVPlayer.status changes.
      */
     func player(statusDidChange status: AVPlayer.Status)
-    
+
     /**
      Called when the AVPlayer.timeControlStatus changes.
      */

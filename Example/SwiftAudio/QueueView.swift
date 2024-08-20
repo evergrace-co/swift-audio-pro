@@ -1,10 +1,3 @@
-//
-//  QueueView.swift
-//  SwiftAudio
-//
-//  Created by David Chavez on 4/12/24.
-//
-
 import SwiftUI
 import SwiftAudioPro
 

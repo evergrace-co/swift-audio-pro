@@ -1,10 +1,3 @@
-//
-//  Extensions.swift
-//  SwiftAudio
-//
-//  Created by Brandon Sneed on 3/30/24.
-//
-
 import Foundation
 
 extension Double {

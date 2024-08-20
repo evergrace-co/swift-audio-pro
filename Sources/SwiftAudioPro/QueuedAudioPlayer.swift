@@ -1,10 +1,3 @@
-//
-//  QueuedAudioPlayer.swift
-//  SwiftAudio
-//
-//  Created by Jørgen Henrichsen on 24/03/2018.
-//
-
 import Foundation
 import MediaPlayer
 

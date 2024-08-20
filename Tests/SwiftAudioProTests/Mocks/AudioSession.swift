@@ -1,11 +1,3 @@
-//
-//  AudioSession.swift
-//  SwiftAudio_Tests
-//
-//  Created by Jørgen Henrichsen on 31/10/2018.
-//  Copyright © 2018 CocoaPods. All rights reserved.
-//
-
 import Foundation
 import AVFoundation
 

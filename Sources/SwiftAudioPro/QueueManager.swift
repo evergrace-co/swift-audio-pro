@@ -1,10 +1,3 @@
-//
-//  QueueManager.swift
-//  SwiftAudio
-//
-//  Created by Jørgen Henrichsen on 24/03/2018.
-//
-
 import Foundation
 
 protocol QueueManagerDelegate: AnyObject {
@@ -30,7 +23,7 @@ class QueueManager<Element> {
         recursiveLock.unlock()
         return result
     }
-    
+
     weak var delegate: QueueManagerDelegate? = nil
 
     var _currentIndex: Int = -1
@@ -220,7 +213,7 @@ class QueueManager<Element> {
         let result = try synchronizeThrows {
             try throwIfQueueEmpty();
             try throwIfIndexInvalid(index: index)
-            
+
             if (index == currentIndex) {
                 skippedToSameCurrentItem = true
             } else {
@@ -250,7 +243,7 @@ class QueueManager<Element> {
             try throwIfQueueEmpty();
             try throwIfIndexInvalid(index: fromIndex, name: "fromIndex")
             try throwIfIndexInvalid(index: toIndex, name: "toIndex", max: Int.max)
-            
+
             let item = items.remove(at: fromIndex)
             self.items.insert(item, at: min(items.count, toIndex));
             if (fromIndex == currentIndex) {
@@ -279,7 +272,7 @@ class QueueManager<Element> {
             } else if index < currentIndex {
                 currentIndex -= 1
             }
-            
+
             return result;
         }
         if (currentItemChanged) {

@@ -1,10 +1,3 @@
-//
-//  AudioPlayer.swift
-//  SwiftAudio
-//
-//  Created by Jørgen Henrichsen on 15/03/2018.
-//
-
 import Foundation
 import MediaPlayer
 
@@ -62,9 +55,9 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
         if playWhenReady == false {
             self.playWhenReady = false
         }
-        
+
         try action()
-        
+
         if playWhenReady == true, playbackError == nil {
             self.playWhenReady = true
         }
@@ -75,7 +68,7 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
     public var playbackError: AudioPlayerError.PlaybackError? {
         wrapper.playbackError
     }
-    
+
     /**
      The elapsed playback time of the current item.
      */
@@ -115,7 +108,7 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
             wrapper.playWhenReady = newValue
         }
     }
-    
+
     /**
      The amount of seconds to be buffered by the player. Default value is 0 seconds, this means the AVPlayer will choose an appropriate level of buffering. Setting `bufferDuration` to larger than zero automatically disables `automaticallyWaitsToMinimizeStalling`. Setting it back to zero automatically enables `automaticallyWaitsToMinimizeStalling`.
 
@@ -143,7 +136,7 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
             wrapper.automaticallyWaitsToMinimizeStalling = newValue
         }
     }
-    
+
     /**
      Set this to decide how often the player should call the delegate with time progress events.
      */
@@ -210,9 +203,9 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
                 ])
                 loadNowPlayingMetaValues()
             }
-            
+
             enableRemoteCommands(forItem: item)
-            
+
             wrapper.load(
                 from: item.getSourceUrl(),
                 type: item.getSourceType(),
@@ -261,7 +254,7 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
     public func reload(startFromCurrentTime: Bool) {
         wrapper.reload(startFromCurrentTime: startFromCurrentTime)
     }
-    
+
     /**
      Seek to a specific time in the item.
      */
@@ -275,7 +268,7 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
     public func seek(by offset: TimeInterval) {
         wrapper.seek(by: offset)
     }
-    
+
     // MARK: - Remote Command Center
 
     func enableRemoteCommands(_ commands: [RemoteCommand]) {
@@ -413,15 +406,15 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
     func AVWrapper(didUpdateDuration duration: Double) {
         event.updateDuration.emit(data: duration)
     }
-    
+
     func AVWrapper(didReceiveCommonMetadata metadata: [AVMetadataItem]) {
         event.receiveCommonMetadata.emit(data: metadata)
     }
-    
+
     func AVWrapper(didReceiveChapterMetadata metadata: [AVTimedMetadataGroup]) {
         event.receiveChapterMetadata.emit(data: metadata)
     }
-    
+
     func AVWrapper(didReceiveTimedMetadata metadata: [AVTimedMetadataGroup]) {
         event.receiveTimedMetadata.emit(data: metadata)
     }
@@ -429,7 +422,7 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
     func AVWrapper(didChangePlayWhenReady playWhenReady: Bool) {
         event.playWhenReadyChange.emit(data: playWhenReady)
     }
-    
+
     func AVWrapperItemDidPlayToEndTime() {
         event.playbackEnd.emit(data: .playedUntilEnd)
         wrapper.state = .ended
@@ -442,7 +435,7 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
     func AVWrapperItemPlaybackStalled() {
 
     }
-    
+
     func AVWrapperDidRecreateAVPlayer() {
         event.didRecreateAVPlayer.emit(data: ())
     }
