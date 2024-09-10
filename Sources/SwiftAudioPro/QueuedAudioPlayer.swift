@@ -95,30 +95,6 @@ public class QueuedAudioPlayer: AudioPlayer, QueueManagerDelegate {
     }
 
     /**
-     Step to the next item in the queue.
-     */
-    public func next() {
-        let lastIndex = currentIndex
-        let playbackWasActive = wrapper.playbackActive;
-        _ = queue.next(wrap: repeatMode == .queue)
-        if (playbackWasActive && lastIndex != currentIndex || repeatMode == .queue) {
-            event.playbackEnd.emit(data: .skippedToNext)
-        }
-    }
-
-    /**
-     Step to the previous item in the queue.
-     */
-    public func previous() {
-        let lastIndex = currentIndex
-        let playbackWasActive = wrapper.playbackActive;
-        _ = queue.previous(wrap: repeatMode == .queue)
-        if (playbackWasActive && lastIndex != currentIndex || repeatMode == .queue) {
-            event.playbackEnd.emit(data: .skippedToPrevious)
-        }
-    }
-
-    /**
      Remove an item from the queue.
 
      - parameter index: The index of the item to remove.
